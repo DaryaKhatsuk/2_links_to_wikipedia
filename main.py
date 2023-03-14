@@ -41,8 +41,8 @@ async def find_path(start_url, target_url, target_title, depth=3):
 
 
 async def main():
-    start_url = 'https://en.wikipedia.org/wiki/Xbox_360_S'
-    target_url = 'https://ru.wikipedia.org/wiki/Nintendo_3DS'
+    start_url = input('Enter start URL: ')
+    target_url = input('Enter target URL: ')
     target_title = str(re.search(r'/([^/]+)$', target_url)).replace('_', ' ')
     path = await find_path(start_url, target_url, target_title, depth=3)
     if path:
