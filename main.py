@@ -24,7 +24,7 @@ async def search_links(session, current_url, target_url, target_title, path, dep
             return path + [(match.get_text(), current_url)]
         links = body_content.find_all('a', href=re.compile(r'^/wiki/[^:]+$'))
         for link in links:
-            next_url = f"https://en.wikipedia.org{link['href']}"
+            next_url = f"https://ru.wikipedia.org{link['href']}"
             if next_url not in visited:
                 next_path = await search_links(session, next_url, target_url, target_title,
                                                path + [(link.get_text(), next_url)], depth - 1, visited)
