@@ -10,17 +10,16 @@ async def search_links(session, current_url, target_url, target_title, path, dep
     if visited is None:
         visited = set()
     visited.add(current_url)
+    logging.info(current_url)
     if depth == 0:
         return None
     async with session.get(current_url) as response:
         text = await response.text()
         soup = BeautifulSoup(text, 'html.parser')
         body_content = soup.find('div', id='bodyContent', class_='vector-body')
-        print(body_content)
         if not body_content:
             return None
         match = body_content.find('h1', id='firstHeading', class_='firstHeading')
-        print(match)
         if match and match.get_text().strip() == target_title:
             return path + [(match.get_text(), current_url)]
         links = body_content.find_all('a', href=re.compile(r'^/wiki/[^:]+$'))
